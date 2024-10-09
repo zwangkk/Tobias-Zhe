@@ -24,3 +24,24 @@ Outline of Instructions:
     -   plots can be added either with the data visualization code or with Markdown syntax (calling a saved image) - it’s up to you if you want to include the code or not.
 
 Finally, publish on GitHub pages (from Owner’s repository). Refer back to Chapter 12 for steps on how to publish using GitHub pages.
+
+## Owner analysis
+```{r}
+# line and point plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_point(aes(color = SITE)) +
+  geom_line(aes(color = SITE))+
+  theme(legend.position = "bottom",
+          axis.ticks.y = element_blank())
+```
+This a line graph of the number of total lobsters observed by year. Different color refers to different site of the lobsters. The year ranges from 2012-2022. There is a sharp increasing trend from 2012-2017. 
+
+```{r}
+#doged bar plot
+
+ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
+    geom_col(position = "dodge")
+```
+This is a bar graph that shows the amount of small and large sized carapace lobsters. It is interesting that there are more large lobsters at all sites. 
+
+
