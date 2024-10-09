@@ -3,23 +3,24 @@ title: "lobster-report"
 format: html
 ---
 
-## Quarto
+# Final Lobster Report
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Outline of Instructions:
 
-## Running Code
+-   citation of the data
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+-   brief summary of the abstract (i.e. 1-2 sentences) from the [EDI Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
 
-```{r}
-1 + 1
-```
+-   Owner analysis and visualizations (you choose which plots you want to include)
 
-You can add options to executable code like this 
+    -   Try adding alternative text to your plots (See [Quarto Documentation](https://quarto.org/docs/authoring/figures.html#alt-text))
 
-```{r}
-#| echo: false
-2 * 2
-```
+    -   Plots can be added either with the data visualization code or with Markdown syntax (calling a saved image) - it’s up to you if you want to include the code or not.
 
-The `echo: false` option disables the printing of code (only output is displayed).
+-   Collaborator analysis and visualizations (you choose which plots you want to include)
+
+    -   Try adding alternative text to your plots (See [Quarto Documentation](https://quarto.org/docs/authoring/figures.html#alt-text))
+
+    -   plots can be added either with the data visualization code or with Markdown syntax (calling a saved image) - it’s up to you if you want to include the code or not.
+
+Finally, publish on GitHub pages (from Owner’s repository). Refer back to Chapter 12 for steps on how to publish using GitHub pages.
