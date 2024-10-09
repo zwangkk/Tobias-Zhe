@@ -24,3 +24,80 @@ Outline of Instructions:
     -   plots can be added either with the data visualization code or with Markdown syntax (calling a saved image) - it’s up to you if you want to include the code or not.
 
 Finally, publish on GitHub pages (from Owner’s repository). Refer back to Chapter 12 for steps on how to publish using GitHub pages.
+
+## Collaborator analysis and visualizations
+
+## 1. Line Plot (Total Lobster Commercial Traps by Year and Site)
+To include this plot in your Quarto document, you can either generate it inline or save it as an image and include it via Markdown.
+
+```{r}
+# Styled line plot for total lobster commercial traps by year and site
+lobster_trap_plot <- ggplot(data = lobster_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS, color = SITE)) +
+  geom_line(size = 1.2, linetype = "solid") +  # Adjust line size and type
+  geom_point(size = 3) +  # Add larger points
+  labs(title = "Total Lobster Commercial Traps by Year and Site",
+       x = "Year",
+       y = "Total Traps",
+       color = "Site") +  # Modify axis, legend, and plot labels
+  scale_x_continuous(breaks = seq(min(lobster_traps_summarize$YEAR), max(lobster_traps_summarize$YEAR), by = 1)) +  # Adjust x-axis breaks
+  theme_light() +  # Add a clean, light theme
+  theme(
+    text = element_text(size = 14, family = "Arial"),  # Customize text size and font
+    axis.title.y = element_text(margin = margin(r = 10)),  # Add margin to the y-axis title
+    panel.grid.major = element_line(color = "gray80", linetype = "dashed"),  # Customize major grid lines
+    panel.background = element_rect(fill = "white"),  # Set panel background to white
+    plot.background = element_rect(fill = "lightblue", color = NA),  # Set plot background
+    legend.position = "bottom",  # Move legend to the bottom
+    plot.title = element_text(hjust = 0.5)  # Center the title
+  )
+
+# Display the plot
+print(lobster_trap_plot)
+
+# Save the plot with alternative text
+ggsave(here::here("figs/lobster_trap_plot.png"), plot = lobster_trap_plot, width = 10, height = 6)
+
+```
+
+## 2. Bar Chart (Fishing Pressure)
+
+```{r}
+# Bar plot showing high and low fishing pressure by SITE from 2019-2021
+fishing_pressure_plot <- ggplot(data = lobster_traps_filtered, aes(x = SITE, fill = FISHING_PRESSURE)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Fishing Pressure of Lobster Commercial Traps (2019-2021)",
+       x = "Site",
+       y = "Count of Fishing Pressure",
+       fill = "Fishing Pressure") +
+  theme_minimal() +  # Apply a minimal theme
+  theme(
+    text = element_text(size = 12, family = "Arial"),
+    plot.title = element_text(hjust = 0.5),
+    legend.position = "bottom"
+  )
+
+# Display the plot
+print(fishing_pressure_plot)
+
+# Save the bar plot with alt text
+ggsave(here::here("figs/fishing_pressure_plot.png"), plot = fishing_pressure_plot, width = 10, height = 6)
+
+```
+
+## 3. Histogram (Lobster Traps by Year)
+
+```{r}
+# Histogram with customized colors and theme
+ggplot(data = lobster_traps, aes(x = TRAPS)) +
+  geom_histogram(fill = "steelblue", color = "black", binwidth = 10) +
+  facet_wrap(~YEAR) +
+  labs(title = "Histogram of Lobster Traps by Year",
+       x = "Number of Traps",
+       y = "Frequency") +
+  theme_minimal()
+
+# Save the histogram plot
+ggsave(here::here("figs/lobster_traps_histogram.png"), width = 10, height = 6)
+
+```
+
