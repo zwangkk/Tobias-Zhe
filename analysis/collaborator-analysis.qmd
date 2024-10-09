@@ -4,3 +4,33 @@ author: "Tobias M. Osborne"
 format: html
 ---
 
+## Load the following libraries at the top of your Quarto Document
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(here)
+```
+
+## Read in the data and store the data frame as lobster_traps
+
+```{r}
+lobster_traps <- read_csv(here::here("data/Lobster_Trap_Counts_All_Years_20210519.csv"))
+
+head(lobster_traps)
+
+```
+
+# Display the structure of the data
+str(lobster_traps)
+
+```{r}
+str(lobster_traps)
+
+```
+
+
+
+
