@@ -7,6 +7,9 @@ format: html
 ## Load the following libraries at the top of your Quarto Document
 
 ```{r}
+#| messgae: false
+#| warning: false 
+
 library(readr)
 library(dplyr)
 library(ggplot2)
@@ -24,12 +27,42 @@ head(lobster_traps)
 ```
 
 # Display the structure of the data
-str(lobster_traps)
 
 ```{r}
 str(lobster_traps)
 
 ```
+
+## Convert missing values using mutate() and na_if()
+Question 1
+```{r}
+# Convert -99999 in the TRAPS column to NA
+lobster_traps <- lobster_traps %>%
+  mutate(TRAPS = na_if(TRAPS, -99999))
+
+# Check if the conversion worked by looking at unique values in the TRAPS column
+unique(lobster_traps$TRAPS)
+
+```
+
+Question 2 Code to Subset Data Excluding NAPL:
+```{r}
+# Create a subset excluding "NAPL" from the Region column
+not_napl <- lobster_traps %>% 
+    filter(SITE != "NAPL")
+
+head(not_napl)
+head(lobster_traps)
+
+```
+
+Question 3
+```{r}
+carp_20_traps <- lobster_traps %>% 
+    filter(SITE == "CARP" & TRAPS > 20)
+```
+
+## 16.0.1 Create visually appealing and informative data visualization
 
 
 
