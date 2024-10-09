@@ -62,8 +62,89 @@ carp_20_traps <- lobster_traps %>%
     filter(SITE == "CARP" & TRAPS > 20)
 ```
 
-## 16.0.1 Create visually appealing and informative data visualization
+## Exercise: Data Visualization
+16.0.1 Create visually appealing and informative data visualization
 
+Question 5
+```{r}
+ggplot(data = lobster_traps, aes(x = TRAPS))+
+  geom_histogram() + 
+  facet_wrap(~YEAR)
+```
 
+Question 6
+Create a line graph of the number of total lobster commercial traps observed (y-axis) by year (x-axis) in the study, grouped by SITE.
 
+```{r}
+lobster_traps_summarize <- lobster_traps %>%
+  group_by(SITE, YEAR) %>%
+  summarize(TOTAL_TRAPS = sum(TRAPS, na.rm = TRUE), .groups = "drop")
+
+# Check the summarized data
+head(lobster_traps_summarize)
+```
+
+line plot
+```{r}
+# Correct line plot with the proper dataframe name
+ggplot(data = lobster_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
+    geom_line(aes(color = SITE)) +
+    geom_point(aes(color = SITE)) +
+    labs(title = "Total Lobster Commercial Traps by Year and Site",
+         x = "Year",
+         y = "Total Traps")
+
+```
+
+Bar chart
+```{r}
+# Filter data for the years 2019-2021
+lobster_traps_filtered <- lobster_traps_summarize %>%
+  filter(YEAR >= 2019 & YEAR <= 2021)
+
+# Create a new column for Fishing Pressure (completely made up)
+set.seed(123)  # For reproducibility
+lobster_traps_filtered <- lobster_traps_filtered %>%
+  mutate(FISHING_PRESSURE = ifelse(TOTAL_TRAPS > median(TOTAL_TRAPS), "High", "Low"))
+
+# Bar plot showing high and low fishing pressure by SITE from 2019-2021
+ggplot(data = lobster_traps_filtered, aes(x = SITE, fill = FISHING_PRESSURE)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Fishing Pressure of Lobster Commercial Traps (2019-2021)",
+       x = "Site",
+       y = "Count of Fishing Pressure",
+       fill = "Fishing Pressure")
+
+```
+
+## GPT Style Mode ON
+
+```{r}
+# Styled line plot for total lobster commercial traps by year and site
+lobster_trap_plot <- ggplot(data = lobster_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS, color = SITE)) +
+  geom_line(size = 1.2, linetype = "solid") +  # Adjust line size and type
+  geom_point(size = 3) +  # Add larger points
+  labs(title = "Total Lobster Commercial Traps by Year and Site",
+       x = "Year",
+       y = "Total Traps",
+       color = "Site") +  # Modify axis, legend, and plot labels
+  scale_x_continuous(breaks = seq(min(lobster_traps_summarize$YEAR), max(lobster_traps_summarize$YEAR), by = 1)) +  # Adjust x-axis breaks
+  theme_light() +  # Add a clean, light theme
+  theme(
+    text = element_text(size = 14, family = "Arial"),  # Customize text size and font
+    axis.title.y = element_text(margin = margin(r = 10)),  # Add margin to the y-axis title
+    panel.grid.major = element_line(color = "gray80", linetype = "dashed"),  # Customize major grid lines
+    panel.background = element_rect(fill = "white"),  # Set panel background to white
+    plot.background = element_rect(fill = "lightblue", color = NA),  # Set plot background
+    legend.position = "bottom",  # Move legend to the bottom
+    plot.title = element_text(hjust = 0.5)  # Center the title
+  )
+
+# Display the plot
+print(lobster_trap_plot)
+
+# Save the plot to the figs directory
+ggsave(here::here("figs/lobster_trap_plot.png"), plot = lobster_trap_plot, width = 10, height = 6)
+
+```
 
