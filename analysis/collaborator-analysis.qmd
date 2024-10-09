@@ -67,9 +67,18 @@ carp_20_traps <- lobster_traps %>%
 
 Question 5
 ```{r}
-ggplot(data = lobster_traps, aes(x = TRAPS))+
-  geom_histogram() + 
-  facet_wrap(~YEAR)
+
+ggplot(data = lobster_traps, aes(x = TRAPS)) +
+  geom_histogram(fill = "steelblue", color = "black", binwidth = 10) +  # Adjust fill and border color
+  facet_wrap(~YEAR) +
+  labs(title = "Histogram of Lobster Traps by Year",
+       x = "Number of Traps",
+       y = "Frequency") +
+  theme_minimal()  # Apply a clean, minimal theme
+
+# Save the plot to the figs directory
+ggsave(here::here("figs/lobster_traps.png"), plot = lobster_trap_plot, width = 10, height = 6)
+
 ```
 
 Question 6
@@ -94,6 +103,7 @@ ggplot(data = lobster_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
          x = "Year",
          y = "Total Traps")
 
+
 ```
 
 Bar chart
@@ -114,6 +124,7 @@ ggplot(data = lobster_traps_filtered, aes(x = SITE, fill = FISHING_PRESSURE)) +
        x = "Site",
        y = "Count of Fishing Pressure",
        fill = "Fishing Pressure")
+
 
 ```
 
