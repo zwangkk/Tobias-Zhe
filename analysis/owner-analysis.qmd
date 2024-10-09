@@ -23,3 +23,27 @@ glimpse(lobster_abundance)
 unique(lobster_abundance$MONTH)
 ```
 
+Q1 Converting missing values using 'mutate()' and 'na_if()'
+```{r}
+lobster_abundance <- lobster_abundance %>% 
+  mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+```
+Q2filter() practice
+```{r}
+not_napl <- lobster_abundance %>% 
+  filter(SITE != "NAPL")
+unique(not_napl$SITE)
+```
+Q3 Create and store a subset 
+```{r}
+aque_70mm <- lobster_abundance %>% 
+  filter(SITE == "AQUE" & SIZE_MM >= 70)
+```
+
+
+
+
+
+
+
+
