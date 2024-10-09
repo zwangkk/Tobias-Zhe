@@ -25,6 +25,7 @@ Outline of Instructions:
 
 Finally, publish on GitHub pages (from Owner’s repository). Refer back to Chapter 12 for steps on how to publish using GitHub pages.
 
+<<<<<<< HEAD
 ## Collaborator analysis and visualizations
 
 ## 1. Line Plot (Total Lobster Commercial Traps by Year and Site)
@@ -100,4 +101,25 @@ ggplot(data = lobster_traps, aes(x = TRAPS)) +
 ggsave(here::here("figs/lobster_traps_histogram.png"), width = 10, height = 6)
 
 ```
+
+## Owner analysis
+```{r}
+# line and point plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_point(aes(color = SITE)) +
+  geom_line(aes(color = SITE))+
+  theme(legend.position = "bottom",
+          axis.ticks.y = element_blank())
+```
+This a line graph of the number of total lobsters observed by year. Different color refers to different site of the lobsters. The year ranges from 2012-2022. There is a sharp increasing trend from 2012-2017. 
+
+```{r}
+#doged bar plot
+
+ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
+    geom_col(position = "dodge")
+```
+This is a bar graph that shows the amount of small and large sized carapace lobsters. It is interesting that there are more large lobsters at all sites. 
+
+>>>>>>> 6d27ecfa8822e3dec81181013b15cd3bbd9661c3
 
