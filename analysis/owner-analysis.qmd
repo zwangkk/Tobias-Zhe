@@ -40,6 +40,12 @@ aque_70mm <- lobster_abundance %>%
   filter(SITE == "AQUE" & SIZE_MM >= 70)
 ```
 
+Q4
+```{r}
+max_lobster <- lobster_abundance %>% 
+  group_by(SITE, MONTH) %>% 
+  summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
+```
 
 
 
